@@ -1,13 +1,14 @@
 import React from 'react';
-import { Form,Formik } from 'formik';
+import { Form, Formik } from 'formik';
 
 import LoginImg from '../../assets/log.svg';
 import RegisterImg from '../../assets/register.svg';
-import { LoginDTO } from '../../types';
+import { LoginDTO, RegisterDTO } from '../../types';
 
-import { loginValidationSchema } from './auth.schema';
+import { loginValidationSchema, registerValidationSchema } from './auth.schema';
 function Auth() {
   const loginInitialValues: LoginDTO = { email: '', password: '' };
+  const registerInitialValues: RegisterDTO = { name: '', email: '', password: '' };
 
 
   const toggleForm = () => {
@@ -23,6 +24,9 @@ function Auth() {
     console.log(values);
   }
 
+  const onRegisterSubmit = (values: RegisterDTO) => {
+    console.log(values);
+  }
 
   return (
 
@@ -68,25 +72,57 @@ function Auth() {
               </Form >
             )}
           </Formik>
+          <Formik
+            initialValues={registerInitialValues}
+            validationSchema={registerValidationSchema}
+            onSubmit={onRegisterSubmit}
+          >
+            {formik => (
+              <Form className="sign-up-form">
+                <h2 className="title">Sign Up</h2>
+                <div className="input-field">
+                  <i className="fas fa-user"></i>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    {...formik.getFieldProps('name')}
+                  />
+                </div>
+                {formik.touched.name && formik.errors.name ? (
+                  <span className="error">{formik.errors.name}</span>
+                ) : null}
+                <div className="input-field">
+                  <i className="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    {...formik.getFieldProps('email')}
+                  />
+                </div>
+                {formik.touched.email && formik.errors.email ? (
+                  <span className="error">{formik.errors.email}</span>
+                ) : null}
+                <div className="input-field">
+                  <i className="fas fa-lock"></i>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    {...formik.getFieldProps('password')}
+                  />
+                </div>
+                {formik.touched.password && formik.errors.password ? (
+                  <span className="error">{formik.errors.password}</span>
+                ) : null}
+                <input
+                  type="submit"
+                  value="Sign Up"
+                  className="btn solid"
+                  disabled={formik.isSubmitting}
+                />
+              </Form>
+            )}
+          </Formik>
 
-          <form action="" className="sign-up-form">
-            <h2 className="title">Sign Up</h2>
-            <div className="input-field">
-              <i className="fas fa-user"></i>
-              <input type="text" placeholder="Name" />
-            </div>
-            <div className="input-field">
-              <i className="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
-            </div>
-            <div className="input-field">
-              <i className="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
-            </div>
-            <input type="submit" value="Sign Up" className="btn solid" />
-
-
-          </form>
         </div>
       </div>
       <div className="panels-container">
