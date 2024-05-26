@@ -29,6 +29,9 @@ module.exports = {
     // enforce import and export sorting
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    
 
     // disable unused vars check for variables starting with underscore _
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],

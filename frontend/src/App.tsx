@@ -1,7 +1,6 @@
-import reactLogo from './assets/react.svg';
-import viteLogo from './assets/vite.svg';
 import { counterActions } from './redux/counter/slice';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
+import Auth from './views/Auth';
 import { Counter } from './components';
 
 import './App.css';
@@ -26,7 +25,7 @@ function App() {
   const decrementAsync = (): void => {
     dispatch(counterActions.decrementAsync());
   };
-
+return <Auth />
   return (
     <>
       <div>
