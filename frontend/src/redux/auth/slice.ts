@@ -7,12 +7,14 @@ interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
   error: string | null;
+  token: string | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   error: null,
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -20,9 +22,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loginRequest(state, action: PayloadAction<LoginDTO>) { },
-    loginSuccess(state, action: PayloadAction<User>) {
+    loginSuccess(state, action: PayloadAction<{ user: User, token: string }>) {
       state.isAuthenticated = true;
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
       state.error = null;
     },
     loginFailure(state, action: PayloadAction<string>) {
@@ -31,9 +34,10 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     registerRequest(state, action: PayloadAction<LoginDTO>) { },
-    registerSuccess(state, action: PayloadAction<User>) {
+    registerSuccess(state, action: PayloadAction<{ user: User, token: string }>) {
       state.isAuthenticated = true;
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
       state.error = null;
     },
     registerFailure(state, action: PayloadAction<string>) {

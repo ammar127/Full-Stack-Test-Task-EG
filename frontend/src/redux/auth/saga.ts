@@ -49,9 +49,14 @@ function* handleRegister(action: RegisterAction) {
     yield put(registerSuccess(user));
     toast.success('Successfully registered!')
   } catch (error: any) {
-    const message: string = error?.response?.data?.message;
-    toast.error(message)
-    yield put(registerFailure(message));
+    const message: any = error?.response?.data?.message;
+    // if type of message is array then trigger multiple toasts
+    if (Array.isArray(message)) {
+      message.forEach((msg: string) => toast.error(msg))
+    } else {
+      toast.error(message as string)
+    }
+    yield put(registerFailure(message as string));
   }
 }
 
