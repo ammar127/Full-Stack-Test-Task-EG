@@ -10,7 +10,7 @@ export interface RegisterDTO {
 };
 
 export interface User {
-  email?: string,
-  name?: string,
-  token: string,
+  email?: string | null,
+  name?: string | null,
+  token: string | null,
 };

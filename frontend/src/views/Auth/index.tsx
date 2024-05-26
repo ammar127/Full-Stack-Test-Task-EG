@@ -3,10 +3,16 @@ import { Form, Formik } from 'formik';
 
 import LoginImg from '../../assets/log.svg';
 import RegisterImg from '../../assets/register.svg';
+import { loginRequest, registerRequest } from '../../redux/auth/slice';
+import { useAppDispatch } from '../../redux/hooks';
 import { LoginDTO, RegisterDTO } from '../../types';
 
 import { loginValidationSchema, registerValidationSchema } from './auth.schema';
 function Auth() {
+
+  const dispatch = useAppDispatch();
+
+
   const loginInitialValues: LoginDTO = { email: '', password: '' };
   const registerInitialValues: RegisterDTO = { name: '', email: '', password: '' };
 
@@ -21,11 +27,11 @@ function Auth() {
   }
 
   const onLoginSubmit = (values: LoginDTO) => {
-    console.log(values);
+    dispatch(loginRequest(values));
   }
 
   const onRegisterSubmit = (values: RegisterDTO) => {
-    console.log(values);
+    dispatch(registerRequest(values));
   }
 
   return (

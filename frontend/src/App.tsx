@@ -1,55 +1,21 @@
-import { counterActions } from './redux/counter/slice';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
-import Auth from './views/Auth';
-import { Counter } from './components';
+import { useSelector } from 'react-redux';
+
+import { RootState } from '@reduxjs/toolkit/query';
+
+import {  useAppSelector } from './redux/hooks';
+import Auth from './views/Auth/index';
 
 import './App.css';
 
 function App() {
-  const dispatch = useAppDispatch();
 
-  const { value } = useAppSelector((state) => state.counter);
+  const { error, isAuthenticated, user } = useAppSelector((state: RootState) => state.auth);
+  if (!isAuthenticated)
+    return <Auth />
 
-  const increment = (): void => {
-    dispatch(counterActions.increment());
-  };
-
-  const decrement = (): void => {
-    dispatch(counterActions.decrement());
-  };
-
-  const incrementAsync = (): void => {
-    dispatch(counterActions.incrementAsync());
-  };
-
-  const decrementAsync = (): void => {
-    dispatch(counterActions.decrementAsync());
-  };
-return <Auth />
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Counter
-          onIncrement={increment}
-          onDecrement={decrement}
-          onIncrementAsync={incrementAsync}
-          onDecrementAsync={decrementAsync}
-          value={value}
-        />
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <h1>Hello World</h1>
     </>
   );
 }
