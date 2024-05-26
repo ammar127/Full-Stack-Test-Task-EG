@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 
 import LoginImg from '../../assets/log.svg';
 import RegisterImg from '../../assets/register.svg';
@@ -26,12 +26,15 @@ function Auth() {
     }
   }
 
-  const onLoginSubmit = (values: LoginDTO) => {
+  const onLoginSubmit = (values: LoginDTO, { setSubmitting }: FormikHelpers<LoginDTO>) => {
+    console.log("🚀 ~ onLoginSubmit ~ values:", values)
     dispatch(loginRequest(values));
+    setSubmitting(false);
   }
 
-  const onRegisterSubmit = (values: RegisterDTO) => {
+  const onRegisterSubmit = (values: RegisterDTO, { setSubmitting }: FormikHelpers<RegisterDTO>) => {
     dispatch(registerRequest(values));
+    setSubmitting(false);
   }
 
   return (

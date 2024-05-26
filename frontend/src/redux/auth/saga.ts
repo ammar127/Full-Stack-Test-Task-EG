@@ -4,6 +4,7 @@
 // src/features/auth/authSaga.ts
 import axios from 'axios';
 import { AxiosResponse } from 'axios'; // Import AxiosResponse type
+import toast from 'react-hot-toast';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { API_URL } from '../../constants';
@@ -24,8 +25,11 @@ function* handleLogin(action: LoginAction) {
   try {
     const user: User = yield call(loginApi, action.payload);
     yield put(loginSuccess(user));
+    toast.success('Successfully logged in!')
   } catch (error: any) {
-    yield put(loginFailure(error?.message as string));
+    const message: string = error?.response?.data?.message;
+    yield put(loginFailure(message));
+    toast.error(message)
   }
 }
 
@@ -43,8 +47,11 @@ function* handleRegister(action: RegisterAction) {
   try {
     const user: User = yield call(registerApi, action.payload);
     yield put(registerSuccess(user));
+    toast.success('Successfully registered!')
   } catch (error: any) {
-    yield put(registerFailure(error?.message as string));
+    const message: string = error?.response?.data?.message;
+    toast.error(message)
+    yield put(registerFailure(message));
   }
 }
 
